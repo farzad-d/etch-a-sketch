@@ -11,10 +11,9 @@ function gridCreator(gridSize = 16) {
   squares.forEach((sqr) => {
     sqr.style.height = `${640 / gridSize}px`;
     sqr.style.width = `${640 / gridSize}px`;
+    sqr.dataset.opacity = "0";
   });
 }
-
-let opc = 0;
 
 container.addEventListener("mouseover", (e) => {
   let pixel = e.target;
@@ -27,14 +26,17 @@ container.addEventListener("mouseover", (e) => {
       .toString(16)
       .padStart(6, "0");
 
-  if (opc < 1) opc += 0.05;
+  let currentOpacity = parseFloat(pixel.dataset.opacity) || 0;
 
-  pixel.style.opacity = opc;
-  pixel.style.backgroundColor = randomHex;
+  if (currentOpacity < 1) {
+    currentOpacity = Math.min(1, currentOpacity + 0.1);
+    pixel.dataset.opacity = currentOpacity;
+    pixel.style.opacity = currentOpacity;
+    pixel.style.backgroundColor = randomHex;
+  }
 });
 
 function gridSizeSelector() {
-  opc = 0;
   const size = +prompt("Enter the grid size:");
   if (size > 100 || size < 2) {
     alert("Grid size must range from 2 to 100.");
