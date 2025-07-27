@@ -32,8 +32,9 @@ container.addEventListener("mouseover", (e) => {
     currentOpacity = Math.min(1, currentOpacity + 0.1);
     pixel.dataset.opacity = currentOpacity;
     pixel.style.opacity = currentOpacity;
-    pixel.style.backgroundColor = randomHex;
   }
+
+  pixel.style.backgroundColor = randomHex;
 });
 
 function gridSizeSelector() {
