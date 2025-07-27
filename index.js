@@ -14,13 +14,27 @@ function gridCreator(gridSize = 16) {
   });
 }
 
+let opc = 0;
+
 container.addEventListener("mouseover", (e) => {
   let pixel = e.target;
-  pixel.classList.add("fill");
-  // pixel.style.backgroundColor = "black";
+
+  if (!pixel.classList.contains("square")) return;
+
+  const randomHex =
+    "#" +
+    Math.floor(Math.random() * 0xffffff)
+      .toString(16)
+      .padStart(6, "0");
+
+  if (opc < 1) opc += 0.05;
+
+  pixel.style.opacity = opc;
+  pixel.style.backgroundColor = randomHex;
 });
 
 function gridSizeSelector() {
+  opc = 0;
   const size = +prompt("Enter the grid size:");
   if (size > 100 || size < 2) {
     alert("Grid size must range from 2 to 100.");
